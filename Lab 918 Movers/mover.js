@@ -1,4 +1,5 @@
 function Mover(x, y, diam){
+  //hello katelyn
   this.loc = new JSVector(this.x, this.y);
   this.vel =new JSVector(Math.random()*2 - 1, Math.random()*2 - 1);
   this.acc = new JSVector(0,0);
