@@ -1,6 +1,6 @@
 function Mover(x, y, diam){
   //hello katelyn
-  this.loc = new JSVector(this.x, this.y);
+  this.loc = new JSVector(x, y);
   this.vel =new JSVector(Math.random()*2 - 1, Math.random()*2 - 1);
   this.acc = new JSVector(0,0);
   this.diam = diam;
@@ -21,7 +21,7 @@ Mover.prototype.run = function () {
   this.update();
   this.render();
   for(let i=0; i<this.arr.length; i++){
-    this.arr[i].render();
+    this.arr[i].run(this);
   }
 }
 

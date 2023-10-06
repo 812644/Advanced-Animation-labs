@@ -5,13 +5,14 @@ function Orbiter(x, y, diam){
   this.diam = diam;
   this.clr = "rgba(255,255,0,255)";
   this.isOverlapping = false;
+  this.theta =  Math.random();
   return this;
 }
 
-Orbiter.prototype.run = function () {
-    this.checkEdges();
-    this.checkOverlapping()
-    //this.update();
+Orbiter.prototype.run = function (parent) {
+    // this.checkEdges();
+    // this.checkOverlapping()
+    this.update(parent);
     this.render();
   }
   
@@ -66,8 +67,9 @@ Orbiter.prototype.run = function () {
     context.stroke();   // render the stroke
   }
 
-  Orbiter.prototype.update = function (){
-    let theta =  this.arr[0].loc.getDirection();
-    this.arr[0].loc.x = this.or.getMagnitude()*Math.cos(theta+this.acc.x);
-    this.arr[0].loc.y = this.or.getMagnitude()*Math.sin(theta+this.acc.y);
+  Orbiter.prototype.update = function (parent){
+    console.log("AGGGGGGGG")
+    this.theta+=0.01
+    this.loc.x = parent.loc.x+Math.cos(this.theta)*75;
+    this.loc.y = parent.loc.y+Math.sin(this.theta)*75;
   }
