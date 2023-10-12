@@ -71,7 +71,7 @@ Particle.prototype.render = function () {
   
 Particle.prototype.update = function () {
     this.acc.x = Math.random()*2-1;
-    this.acc.y = Math.random()*2-1;
+    this.acc.y = Math.random()*2-2;
     this.acc.normalize();
     this.acc.multiply(.03);
     this.vel.add(this.acc);

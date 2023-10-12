@@ -12,6 +12,7 @@ function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
     //loadMovers(5);
+    loadParticlesystems(1);
     animate();
     
 
