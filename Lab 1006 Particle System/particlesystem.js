@@ -1,38 +1,25 @@
-function ParticleSystem(x, y, diam){
+function ParticleSystem(){
   this.parray = [50];
+  this.loc = new JSVector(Math.random()*600, Math.random()*600)
   for(let i = 0; i<this.parray.length; i++){
-    this.parray.push(new Particle(Math.random()*600, Math.random(600), 20));
+    this.parray[i] = new Particle(this.loc.x, this.loc.y, 50);
   }
   return this;
 }
 
 ParticleSystem.prototype.run = function (parent) {
-    // this.checkEdges();
-    // this.checkOverlapping()
+    
     this.update(parent);
+    for(let i=0; i<this.parray.length; i++){
+      this.parray[i].run();
+    }
     this.render();
   }
   
   
   
-  //  Sets "this.isOverlapping" to true if bubbles are overlapping
-  ParticleSystem.prototype.checkOverlapping = function () {
-    this.isOverlapping = false;
-    for (let i = 0; i < movers.length; i++) {
-      if (this !== movers[i]) {
-        let dx = this.x - movers[i].x;
-        let dy = this.y - movers[i].y;
-        let d = Math.sqrt(dx * dx + dy * dy)
-        if (d < this.diam) {
-          this.isOverlapping = true;
-          return;
-        }
   
-      }
-    }
-  }
-  
-  // renders a bubble to the canvas
+  //renders a bubble to the canvas
   ParticleSystem.prototype.render = function () {
     if (this.isOverlapping) {
       context.strokeStyle = "DarkSeaGreen";  // color to fill
@@ -52,5 +39,13 @@ ParticleSystem.prototype.run = function (parent) {
 
   ParticleSystem.prototype.update = function (parent){
     console.log("AGGGGGGGG")
-    
+    for(let i = 0; i<this.parray.length; i++){
+      console.log(i);
+      console.log(this.parray.length);
+      if(this.parray[i].isDead == true){
+        this.parray = this.parray[1, this.parray.length-1];
+        i--;
+        console.log(i);
+      }
+    }
   }

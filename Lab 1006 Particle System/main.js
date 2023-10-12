@@ -11,8 +11,8 @@ let particleSystems = [];
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
-    //loadMovers(5);
     loadParticlesystems(1);
+    console.log("hello");
     animate();
     
 
@@ -28,10 +28,7 @@ function animate() {
 
 function loadParticlesystems (n) {
     for (let i = 0; i < n; i++) {
-        let x = Math.random() * 600-0;
-        let y = Math.random() * 600-0;
-        let r = Math.random() * 15 + 5;
-        particleSystems[i] = new ParticleSystem(x, y, r);
+        particleSystems[i] = new ParticleSystem();
     }
 }
 
