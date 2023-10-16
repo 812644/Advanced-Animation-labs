@@ -1,7 +1,7 @@
 function Particle(x, y, diam){
   
   this.loc = new JSVector(x, y);
-  this.vel =new JSVector(Math.random()*2 - 1, Math.random()*5);
+  this.vel =new JSVector(Math.random()*2 - 1, Math.random()*10);
   this.acc = new JSVector(0,0);
   this.diam = diam;
   this.clr = "rgba(255,255,0,255)";
@@ -42,7 +42,7 @@ Particle.prototype.update = function () {
     this.acc.x = 0;
     this.acc.y = Math.random()*2+2;
     this.acc.normalize();
-    this.acc.multiply(.01);
+    this.acc.multiply(.03);
     this.loc.add(this.vel);
     this.vel.add(this.acc);
     this.lifespan-=1;
