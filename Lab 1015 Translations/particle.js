@@ -32,23 +32,38 @@ Particle.prototype.render = function () {
   // create the circle path
   context.beginPath();    // clear old path
   // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
-  context.arc(this.loc.x, this.loc.y, this.diam, 0, 2 * Math.PI);
+  context.arc(this.loc.x, this.loc.y, this.diam, 0,  Math.PI);
+  // context.translate(this.loc.x, this.loc.y);
+  // context.lineTo(10, 20);
+  // context.closePath();
+  // context.lineTo(20, 0);
+  // context.closePath();
+  // context.translate(20, 0);
+  // context.lineTo(-10, 20);
+  // context.closePath();
+  // context.reset();
 
   context.fill();     // render the fill
   context.stroke();   // render the stroke
 }
   
 Particle.prototype.update = function () {
+    
     this.acc.x = 0;
     this.acc.y = Math.random()*2+2;
     this.acc.normalize();
     this.acc.multiply(.03);
     this.loc.add(this.vel);
     this.vel.add(this.acc);
-    this.lifespan-=1;
+    //this.lifespan-=1;
     if(this.lifespan<=0){
       this.isDead = true;
     }
+    
+    context.save();
+    context.translate(this.loc.x, this.loc.y);
+    context.rotate(0.00000001);
+    context.reset();
 
 
     

@@ -47,6 +47,6 @@ ParticleSystem.prototype.run = function (parent) {
         
       }
     }
-    this.parray.push(new Particle(this.loc.x, this.loc.y, 5));
+    this.parray.push(new Particle(this.loc.x, this.loc.y, 30));
     
   }
