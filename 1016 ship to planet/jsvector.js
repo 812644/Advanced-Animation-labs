@@ -139,7 +139,7 @@ JSVector.prototype.toString = function() {
 JSVector.prototype.attract = function (b2){
   let acc = new JSVector.subGetNew(this, b2);
   acc.normalize();
-  acc.multiply(.05);
+  acc.multiply(.01);
   this.vel.add(this.acc);
   this.loc.add(this.vel);
 }

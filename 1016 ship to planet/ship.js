@@ -4,6 +4,7 @@ function Ship(x, y){
   this.vel = new JSVector(Math.random()*2-1, Math.random()*2-1);
   this.acc = new JSVector(0, 0);
   this.diam = 10;
+  this.theta = 0;
   return this;
 }
 
@@ -35,24 +36,28 @@ Ship.prototype.run = function () {
   //renders a bubble to the canvas
   Ship.prototype.render = function () {
     if (this.isOverlapping) {
-      context.strokeStyle = "DarkSeaGreen";  // color to fill
-      context.fillStyle = "DarkSeaGreen";     // color to stroke
+      context.strokeStyle = "LightCoral";  // color to fill
+      context.fillStyle = "LightCoral";     // color to stroke
     } else {
-      context.strokeStyle = "DarkSlateGray";  // color to fill
-      context.fillStyle = "DarkSlateGray";     // color to stroke
+      context.strokeStyle = "LightCoral";  // color to fill
+      context.fillStyle = "LightCoral";     // color to stroke
     }
     // create the circle path
-    context.beginPath();    // clear old path
+    //context.beginPath();    // clear old path
     // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
-    context.arc(this.loc.x, this.loc.y, this.diam, 0, 2 * Math.PI);
-    // context.save();
-    // context.translate(this.loc.x, this.loc.y);
-    // context.beginPath();
-    // context.moveTo(20, 0);
-    // context.lineTo(10, 15);
-    // context.lineTo(0, 0);
-    // context.closePath();
-    // context.save();
+    //context.arc(this.loc.x, this.loc.y, this.diam, 0, 2 * Math.PI);
+    context.beginPath();
+    context.moveTo(this.loc.x, this.loc.y);
+    context.lineTo(this.loc.x + 30, this.loc.y-10);
+    context.lineTo(this.loc.x+25, this.loc.y);
+    context.lineTo(this.loc.x +30, this.loc.y +10);
+    context.closePath();
+    
+    // context.strokeStyle = "LightBlue";
+    // context.fillStyle = "LightBlue";
+    // context.moveTo(this.loc.x, this.loc.y);
+    // context.arc(this.loc.x+50, this.loc.y , 20, 0, 2*Math.PI);
+    context.save();
   
     context.fill();     // render the fill
     context.stroke();   // render the stroke
@@ -64,7 +69,9 @@ Ship.prototype.run = function () {
     this.acc.multiply(0.03);
     this.vel.add(this.acc);
     this.loc.add(this.vel);
-    this.vel.limit(3);
+    this.vel.limit(1);
+  
+    
 
     
   }

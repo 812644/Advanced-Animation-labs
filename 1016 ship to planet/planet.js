@@ -7,6 +7,7 @@ function Planet(x, y, diam){
   this.clr = "rgba(255,255,0,255)";
   this.isOverlapping = false;
   this.ship = new Ship(Math.random()*600, Math.random()*600);
+  this.target = new JSVector(canvas.width / 2, canvas.height /2);
   return this;
 }
 Planet.prototype.run = function () {
@@ -20,16 +21,16 @@ Planet.prototype.run = function () {
 
 Planet.prototype.checkEdges = function () {
   if(this.loc.x > canvas.width){
-    this.loc.x = 0;
+    this.loc.x = 0 + this.diam;
   }
   if(this.loc.x < 0){
-    this.loc.x = canvas.width;
+    this.loc.x = canvas.width - this.diam;
   }
   if(this.loc.y > canvas.height){
-    this.loc.y = 0;
+    this.loc.y = 0 + this.diam;
   }
   if(this.loc.y < 0){
-    this.loc.y = canvas.height;
+    this.loc.y = canvas.height - this.diam;
   }
 }
 
@@ -54,15 +55,22 @@ Planet.prototype.render = function () {
 }
   
 Planet.prototype.update = function () {
-  if(this.JSVector.distance(this.ship.loc) <= 200){
-    this.acc = JSVector.subGetNew(this.ship.loc, this.loc);
-    
-    this.acc.normalize();
-    this.acc.multiply(.03);
-    this.vel.limit(3);
+  
+  this.acc = JSVector.subGetNew(this.target, this.loc);
+  this.acc.x = this.acc.x + Math.random()*200;
+  this.acc.y = this.acc.y + Math.random()*200;
+  this.acc.normalize();
+  this.acc.multiply(0.01);
+  this.vel.add(this.acc);
+  this.vel.limit(0.5);
+  if(this.loc.distance(this.ship.loc) <= 200){
+    this.vel = JSVector.subGetNew(this.loc, this.ship.loc);
+    this.vel.limit(2);
+  }
     this.loc.add(this.vel);
     this.vel.add(this.acc);  
-  }
-    
     this.ship.acc = JSVector.subGetNew(this.loc, this.ship.loc);
+    context.translate(this.ship.loc.x, this.ship.loc.y);
+    context.rotate(this.ship.acc.getDirection()*(-1));
+    context.translate(-1*this.ship.loc.x, -1*this.ship.loc.y);
   }
