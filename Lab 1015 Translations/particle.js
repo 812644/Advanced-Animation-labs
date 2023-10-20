@@ -33,12 +33,17 @@ Particle.prototype.render = function () {
   context.beginPath();    // clear old path
   // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
   context.arc(this.loc.x, this.loc.y, this.diam, 0,  Math.PI);
+
+  // context.save();
   // context.translate(this.loc.x, this.loc.y);
+  // context.beginPath();
   // context.lineTo(10, 20);
   // context.closePath();
+  // context.beginPath();
   // context.lineTo(20, 0);
   // context.closePath();
   // context.translate(20, 0);
+  // context.beginPath();
   // context.lineTo(-10, 20);
   // context.closePath();
   // context.reset();
