@@ -45,16 +45,12 @@ Ship.prototype.run = function () {
     // create the circle path
     //context.beginPath();    // clear old path
     // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
-    //context.arc(this.loc.x, this.loc.y, this.diam, 0, 2 * Math.PI);
     context.beginPath();
     context.moveTo(this.loc.x, this.loc.y);
     context.lineTo(this.loc.x + 30, this.loc.y-10);
     context.lineTo(this.loc.x+25, this.loc.y);
     context.lineTo(this.loc.x +30, this.loc.y +10);
     context.closePath();
-    
-    // context.strokeStyle = "LightBlue";
-    // context.fillStyle = "LightBlue";
     // context.moveTo(this.loc.x, this.loc.y);
     // context.arc(this.loc.x+50, this.loc.y , 20, 0, 2*Math.PI);
     context.save();
@@ -70,6 +66,12 @@ Ship.prototype.run = function () {
     this.vel.add(this.acc);
     this.loc.add(this.vel);
     this.vel.limit(1);
+    this.loc.add(this.vel);
+    this.vel.add(this.acc);  
+    // this.ship.acc = JSVector.subGetNew(parent.loc, this.loc);
+    // context.translate(this.loc.x, this.loc.y);
+    // context.rotate(this.acc.getDirection()*(-1));
+    // context.translate(-1*this.loc.x, -1*ship.loc.y);
   
     
 

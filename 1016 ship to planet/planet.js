@@ -65,12 +65,13 @@ Planet.prototype.update = function () {
   this.vel.limit(0.5);
   if(this.loc.distance(this.ship.loc) <= 200){
     this.vel = JSVector.subGetNew(this.loc, this.ship.loc);
-    this.vel.limit(2);
+    this.vel.limit(1);
   }
     this.loc.add(this.vel);
     this.vel.add(this.acc);  
     this.ship.acc = JSVector.subGetNew(this.loc, this.ship.loc);
-    context.translate(this.ship.loc.x, this.ship.loc.y);
-    context.rotate(this.ship.acc.getDirection()*(-1));
-    context.translate(-1*this.ship.loc.x, -1*this.ship.loc.y);
+
+    context.translate(this.loc.x, this.loc.y);
+    context.rotate(this.ship.acc.getDirection()*(-0.02));
+    context.translate(-1*this.loc.x, -1*this.loc.y);
   }
