@@ -21,16 +21,16 @@ Planet.prototype.run = function () {
 
 Planet.prototype.checkEdges = function () {
   if(this.loc.x > canvas.width){
-    this.loc.x = 0 + this.diam;
+    this.loc.x = 0 ;
   }
   if(this.loc.x < 0){
-    this.loc.x = canvas.width - this.diam;
+    this.loc.x = canvas.width ;
   }
   if(this.loc.y > canvas.height){
-    this.loc.y = 0 + this.diam;
+    this.loc.y = 0 ;
   }
   if(this.loc.y < 0){
-    this.loc.y = canvas.height - this.diam;
+    this.loc.y = canvas.height;
   }
 }
 
@@ -65,7 +65,7 @@ Planet.prototype.update = function () {
   this.vel.limit(0.5);
   if(this.loc.distance(this.ship.loc) <= 200){
     this.vel = JSVector.subGetNew(this.loc, this.ship.loc);
-    this.vel.limit(1);
+    this.vel.limit(5);
   }
     this.loc.add(this.vel);
     this.vel.add(this.acc);  

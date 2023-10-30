@@ -1,7 +1,7 @@
 function Particle(x, y, diam){
   
   this.loc = new JSVector(x, y);
-  this.vel =new JSVector(Math.random()*2 - 1, Math.random()*10);
+  this.vel =new JSVector(Math.random()*2-1, Math.random()*2);
   this.acc = new JSVector(0,0);
   this.diam = diam;
   this.clr = "rgba(255,255,0,255)";
@@ -10,10 +10,10 @@ function Particle(x, y, diam){
   this.isDead = false;
   return this;
 }
-Particle.prototype.run = function () {
+Particle.prototype.run = function (parent) {
  
   
-  this.update();
+  this.update(parent);
   this.render();
 }
 
@@ -32,43 +32,41 @@ Particle.prototype.render = function () {
   // create the circle path
   context.beginPath();    // clear old path
   // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
-  context.arc(this.loc.x, this.loc.y, this.diam, 0,  Math.PI);
+  //context.arc(this.loc.x, this.loc.y, this.diam, 0,  Math.PI);
 
-  // context.save();
-  // context.translate(this.loc.x, this.loc.y);
-  // context.beginPath();
-  // context.lineTo(10, 20);
-  // context.closePath();
-  // context.beginPath();
-  // context.lineTo(20, 0);
-  // context.closePath();
-  // context.translate(20, 0);
-  // context.beginPath();
-  // context.lineTo(-10, 20);
-  // context.closePath();
-  // context.reset();
+  context.moveTo(this.loc.x, this.loc.y);
+  context.lineTo(this.loc.x + 8, this.loc.y + 30);
+  context.lineTo(this.loc.x - 8, this.loc.y +30);
+  context.lineTo(this.loc.x, this.loc.y);
+  context.closePath();
+  context.save();
 
   context.fill();     // render the fill
   context.stroke();   // render the stroke
+  context.restore();
+  
 }
   
-Particle.prototype.update = function () {
-    
+Particle.prototype.update = function (parent) {
     this.acc.x = 0;
     this.acc.y = Math.random()*2+2;
     this.acc.normalize();
-    this.acc.multiply(.03);
+    this.acc.multiply(.01);
     this.loc.add(this.vel);
     this.vel.add(this.acc);
+    console.log("hi");
+      // context.save();
+      // context.translate(this.loc.x, this.loc.y);
+      // context.rotate(.01);
+      // this.render();
+      // context.restore();
     //this.lifespan-=1;
     if(this.lifespan<=0){
       this.isDead = true;
     }
     
-    context.save();
-    context.translate(this.loc.x, this.loc.y);
-    context.rotate(0.00000001);
-    context.reset();
+    
+    
 
 
     
