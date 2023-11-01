@@ -21,8 +21,8 @@ function World() {
   this.loadMovers(2800, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
 
   //reduce world to fit inside of mini Canvas
-  this.scaleX //= ???????????
-  this.scaleY //= ???????????
+  this.scaleX = this.ctxMain / this.dims.width;
+  this.scaleY = this.ctxMain / this.dims.height;
 
   // add an event handler such that the a, s, w, d keys
   // will reposition the canvas within the world.
@@ -58,13 +58,24 @@ World.prototype.run = function () {
 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++  run the movers
   //  save the context for the main Canvas
+  this.ctxMain.save();
   //  move the main canvas inside of the world (translate according to this.cnvMainLoc)
+  this.ctxMain.translate(this.cnvMain.width, this.cnvMain.length);
   //  clear the mini rect
+  this.ctxMini.clearRect(0, 0, this.cnvMini.width, this.cnvMini.height);
   //  save the miniContext
+  this.ctxMini.save();
   //  scale world to fit in mini canvas (this.scaleX and this.scaleY)
+  this.cnvMini.width *= this.scaleX;
+  this.cnvMini.height *= this.scaleY;
   //  center rect in the miniCanvas
   //  run all of the movers
+  for(let i = 0; i<this.movers.length; i++){
+    this.movers[i].run();
+  }
   //  restore the main and mini contexts
+  this.ctxMain.restore();
+  this.ctxMini.restore();
 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++ Draw the main and mini Canvas with bounds and axes
 
