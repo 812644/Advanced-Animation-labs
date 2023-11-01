@@ -1,7 +1,7 @@
 function Planet(x, y, diam){
   
   this.loc = new JSVector(x, y);
-  this.vel =new JSVector(Math.random()*2 - 1, Math.random()*2-1);
+  this.vel =new JSVector(0,0);
   this.acc = new JSVector(0,0);
   this.diam = diam;
   this.clr = "rgba(255,255,0,255)";
@@ -21,16 +21,16 @@ Planet.prototype.run = function () {
 
 Planet.prototype.checkEdges = function () {
   if(this.loc.x > canvas.width){
-    this.loc.x = 0 ;
+    this.vel.x = 0-this.vel.x ;
   }
   if(this.loc.x < 0){
-    this.loc.x = canvas.width ;
+    this.vel.x = 0-this.vel.x ;
   }
   if(this.loc.y > canvas.height){
-    this.loc.y = 0 ;
+    this.vel.y = 0-this.vel.y ;
   }
   if(this.loc.y < 0){
-    this.loc.y = canvas.height;
+    this.vel.y = 0-this.vel.y;
   }
 }
 
@@ -49,6 +49,7 @@ Planet.prototype.render = function () {
   context.beginPath();    // clear old path
   // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
   context.arc(this.loc.x, this.loc.y, this.diam, 0, 2 * Math.PI);
+  context.closePath();
 
   context.fill();     // render the fill
   context.stroke();   // render the stroke
@@ -56,22 +57,28 @@ Planet.prototype.render = function () {
   
 Planet.prototype.update = function () {
   
-  this.acc = JSVector.subGetNew(this.target, this.loc);
-  this.acc.x = this.acc.x + Math.random()*200;
-  this.acc.y = this.acc.y + Math.random()*200;
-  this.acc.normalize();
-  this.acc.multiply(0.01);
-  this.vel.add(this.acc);
-  this.vel.limit(0.5);
+  // this.vel = JSVector.subGetNew(this.target, this.loc);
+  // this.vel.normalize();
+  // this.vel.multiply(0.1);
+  // this.vel.limit(0.5);
   if(this.loc.distance(this.ship.loc) <= 200){
     this.vel = JSVector.subGetNew(this.loc, this.ship.loc);
-    this.vel.limit(5);
+    this.vel.limit(2);
+  }
+  else{
+    this.vel.x = Math.random();
+    this.vel.y = Math.random();
   }
     this.loc.add(this.vel);
+    
     this.vel.add(this.acc);  
     this.ship.acc = JSVector.subGetNew(this.loc, this.ship.loc);
 
+    context.save();
     context.translate(this.loc.x, this.loc.y);
-    context.rotate(this.ship.acc.getDirection()*(-0.02));
-    context.translate(-1*this.loc.x, -1*this.loc.y);
+    context.rotate(this.ship.acc.getDirection()*(0.0001));
+    //this.render();
+    //this.ship.render();
+    context.restore();
+    //context.translate(0-this.loc.x, 0-this.loc.y);
   }

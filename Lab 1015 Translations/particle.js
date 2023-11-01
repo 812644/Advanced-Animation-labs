@@ -10,10 +10,10 @@ function Particle(x, y, diam){
   this.isDead = false;
   return this;
 }
-Particle.prototype.run = function (parent) {
+Particle.prototype.run = function () {
  
   
-  this.update(parent);
+  this.update();
   this.render();
 }
 
@@ -47,20 +47,20 @@ Particle.prototype.render = function () {
   
 }
   
-Particle.prototype.update = function (parent) {
+Particle.prototype.update = function () {
+  
     this.acc.x = 0;
     this.acc.y = Math.random()*2+2;
     this.acc.normalize();
     this.acc.multiply(.01);
     this.loc.add(this.vel);
     this.vel.add(this.acc);
-    console.log("hi");
-      // context.save();
-      // context.translate(this.loc.x, this.loc.y);
-      // context.rotate(.01);
-      // this.render();
-      // context.restore();
-    //this.lifespan-=1;
+    context.save();
+    context.translate(this.loc.x, this.loc.y);
+    context.rotate(.01);
+    this.render();
+    context.restore();
+          //this.lifespan-=1;
     if(this.lifespan<=0){
       this.isDead = true;
     }
