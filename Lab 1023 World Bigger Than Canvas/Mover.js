@@ -42,7 +42,6 @@ Mover.prototype.render = function () {
     ctx1.fillStyle = this.clr;
     ctx1.beginPath();
     ctx1.arc(this.loc.x, this.loc.y, this.diam, 0, 2*Math.PI);
-    //ctx1.fill();
     ctx1.fill();
 
    

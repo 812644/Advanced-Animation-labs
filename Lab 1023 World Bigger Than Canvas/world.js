@@ -21,8 +21,8 @@ function World() {
   this.loadMovers(2800, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
 
   //reduce world to fit inside of mini Canvas
-  this.scaleX = this.ctxMain / this.dims.width;
-  this.scaleY = this.ctxMain / this.dims.height;
+  this.scaleX = this.cnvMain.width / this.dims.width;
+  this.scaleY = this.cnvMain.height / this.dims.height;
 
   // add an event handler such that the a, s, w, d keys
   // will reposition the canvas within the world.
@@ -66,8 +66,12 @@ World.prototype.run = function () {
   //  save the miniContext
   this.ctxMini.save();
   //  scale world to fit in mini canvas (this.scaleX and this.scaleY)
-  
+  this.ctxMain.width = this.cnvMini.width * this.scaleX;
+  this.ctxMain.height = this.cnvMini.height * this.scaleY;
+  // this.cnvMini.width = this.ctxMain.width *this.scaleX;
+  // this.cnvMini.height = this.ctxMain.height * this.scaleY;
   //  center rect in the miniCanvas
+
   //  run all of the movers
   for(let i = 0; i<this.movers.length; i++){
     this.movers[i].run();
