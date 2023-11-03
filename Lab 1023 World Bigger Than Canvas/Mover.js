@@ -48,6 +48,7 @@ Mover.prototype.render = function () {
    
    //  render balls in mini map
     let ctx2 = this.ctx2;
+    ctx2.fillStyle = this.clr;
     ctx2.beginPath();
     ctx2.arc(this.loc.x, this.loc.y, this.diam, 0, 2*Math.PI);
     ctx2.fill();

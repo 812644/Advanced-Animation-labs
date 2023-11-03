@@ -30,19 +30,19 @@ function World() {
     switch (event.code) {
       case "KeyW":
         if (world.cnvMainLoc.y + 100 > world.dims.top)
-          world.cnvMainLoc.y -= 20;
+          world.cnvMainLoc.y += 20;
         break;
       case "KeyS":
         if (world.cnvMainLoc.y + world.cnvMain.height - 100 < world.dims.bottom)
-          world.cnvMainLoc.y += 20;
+          world.cnvMainLoc.y -= 20;
         break;
       case "KeyA":
         if (world.cnvMainLoc.x + 100 > world.dims.left)
-          world.cnvMainLoc.x -= 20;
+          world.cnvMainLoc.x += 20;
         break;
       case "KeyD":
         if (world.cnvMainLoc.x + world.cnvMain.width - 100 < world.dims.right)
-          world.cnvMainLoc.x += 20;
+          world.cnvMainLoc.x -= 20;
         break;
         break;
     }
@@ -60,14 +60,13 @@ World.prototype.run = function () {
   //  save the context for the main Canvas
   this.ctxMain.save();
   //  move the main canvas inside of the world (translate according to this.cnvMainLoc)
-  this.ctxMain.translate(this.cnvMain.width, this.cnvMain.length);
+  this.ctxMain.translate(this.cnvMainLoc.x, this.cnvMainLoc.y);
   //  clear the mini rect
   this.ctxMini.clearRect(0, 0, this.cnvMini.width, this.cnvMini.height);
   //  save the miniContext
   this.ctxMini.save();
   //  scale world to fit in mini canvas (this.scaleX and this.scaleY)
-  this.cnvMini.width *= this.scaleX;
-  this.cnvMini.height *= this.scaleY;
+  
   //  center rect in the miniCanvas
   //  run all of the movers
   for(let i = 0; i<this.movers.length; i++){
