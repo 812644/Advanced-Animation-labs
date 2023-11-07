@@ -68,8 +68,7 @@ World.prototype.run = function () {
   //  scale world to fit in mini canvas (this.scaleX and this.scaleY)
   this.ctxMain.width = this.cnvMini.width * this.scaleX;
   this.ctxMain.height = this.cnvMini.height * this.scaleY;
-  // this.cnvMini.width = this.ctxMain.width *this.scaleX;
-  // this.cnvMini.height = this.ctxMain.height * this.scaleY;
+  this.ctxMini.scale(this.scaleX, this.scaleY);
   //  center rect in the miniCanvas
 
   //  run all of the movers
