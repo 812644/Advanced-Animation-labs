@@ -4,14 +4,14 @@ window.addEventListener("load", init);
 
 // global variables
 let canvas, context;
-let movers = [];
+//let planet;
 
 
 
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
-    loadMovers(1);
+    loadPlanet();
     animate();
     
 
@@ -21,24 +21,20 @@ function init() {
 function animate() {
     // erase the HTMLCanvasElement
     context.clearRect(0, 0, canvas.width, canvas.height);
-    runMovers();   // run bubbles
+    runPlanet();   // run bubbles
     requestAnimationFrame(animate); // next cycle
 }
 
-function loadMovers(n) {
-    for (let i = 0; i < n; i++) {
-        let x = Math.random() * 600-0;
-        let y = Math.random() * 600-0;
-        let r = Math.random() * 15 + 5;
-        movers[i] = new Mover(x, y, r);
-    }
+function loadPlanet() {
+    let x = Math.random()*600;
+    let y = Math.random()*600;
+    let diam = 15;
+    planet = new Planet(x, y, diam);
 }
 
 // move the circle to a new location
-function runMovers() {
-    for (let i = 0; i < movers.length; i++) {
-        movers[i].run();
-    }
+function runPlanet() {
+    planet.run();
     
 }
 
