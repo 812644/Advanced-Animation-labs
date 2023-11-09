@@ -8,6 +8,7 @@ function Particle(x, y, diam){
   this.isOverlapping = false;
   this.lifespan = 400;
   this.isDead = false;
+  this.angle = Math.random()*.1-0.05;
   return this;
 }
 Particle.prototype.run = function () {
@@ -33,16 +34,19 @@ Particle.prototype.render = function () {
   context.beginPath();    // clear old path
   // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
   //context.arc(this.loc.x, this.loc.y, this.diam, 0,  Math.PI);
-
-  context.moveTo(this.loc.x, this.loc.y);
-  context.lineTo(this.loc.x + 8, this.loc.y + 30);
-  context.lineTo(this.loc.x - 8, this.loc.y +30);
-  context.lineTo(this.loc.x, this.loc.y);
-  context.closePath();
   context.save();
+  context.translate(this.loc.x, this.loc.y);
+  context.rotate(this.angle*this.vel.x);
+  context.moveTo(0, 0);
+  context.lineTo( 8, 30);
+  context.lineTo( - 8, 30);
+  context.lineTo(0, 0);
+ 
+  
 
   context.fill();     // render the fill
   context.stroke();   // render the stroke
+  context.closePath();
   context.restore();
   
 }
@@ -50,16 +54,13 @@ Particle.prototype.render = function () {
 Particle.prototype.update = function () {
   
     this.acc.x = 0;
+    this.angle+=0.02;
     this.acc.y = Math.random()*2+2;
     this.acc.normalize();
     this.acc.multiply(.01);
     this.loc.add(this.vel);
     this.vel.add(this.acc);
-    context.save();
-    context.translate(this.loc.x, this.loc.y);
-    context.rotate(.01);
-    this.render();
-    context.restore();
+    
           //this.lifespan-=1;
     if(this.lifespan<=0){
       this.isDead = true;
