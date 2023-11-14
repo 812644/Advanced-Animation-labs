@@ -7,25 +7,25 @@ function Ship(x, y){
   this.theta = 0;
   
   this.arrseg = [5];
-  this.seg1 = new Segment(this.loc.x,this.loc.y);
-  // this.arrseg[0]=new Segment(this.loc.x, this.loc.y);
-  // for(let i = 1; i<this.arrseg.length; i++){
-  //   this.arrseg[i] = new Segment(this.loc.x, this.loc.y);
-  // }
-  this.seg2 = new Segment(this.seg1.loc.x, this.seg1.loc.y);
+  //this.seg1 = new Segment(this.loc.x,this.loc.y);
+  this.arrseg[0]=new Segment(this.loc.x, this.loc.y);
+  for(let i = 1; i<this.arrseg.length; i++){
+    this.arrseg[i] = new Segment(this.loc.x, this.loc.y);
+  }
+  //this.seg2 = new Segment(this.seg1.loc.x, this.seg1.loc.y);
   return this;
 }
 
 Ship.prototype.run = function () {
     
-    this.update(parent);
+    this.update();
     this.render();
     this.checkEdges();
-    // for(let i = 0; i<5; i++){
-    //   this.arrseg[i].run(this);
-    // }
-    this.seg1.run();
-    this.seg2.run();
+    for(let i = 0; i<5; i++){
+      this.arrseg[i].run();
+    }
+    //this.seg1.run();
+    //this.seg2.run();
   }
 
 
@@ -83,12 +83,12 @@ Ship.prototype.run = function () {
     this.vel.limit(1);
     this.loc.add(this.vel);
     
-    this.seg1.acc = JSVector.subGetNew(this.loc, this.seg1.loc);
-    this.seg2.acc = JSVector.subGetNew(this.seg1.loc, this.seg2.loc);
-    // this.arrseg[0].acc = JSVector.subGetNew(this.loc, this.arrseg[1].loc);
-    // for(let i = 1; i<5; i++){
-    //   this.arrseg[i].acc = JSVector.subGetNew(this.arrseg[i-1].loc, this.arrseg[i].loc);
-    // }
+    //this.seg1.acc = JSVector.subGetNew(this.loc, this.seg1.loc);
+    //this.seg2.acc = JSVector.subGetNew(this.seg1.loc, this.seg2.loc);
+    this.arrseg[0].acc = JSVector.subGetNew(this.loc, this.arrseg[0].loc);
+    for(let i = 1; i<5; i++){
+      this.arrseg[i].acc = JSVector.subGetNew(this.arrseg[i-1].loc, this.arrseg[i].loc);
+    }
 
 
     

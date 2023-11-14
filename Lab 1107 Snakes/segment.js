@@ -10,7 +10,7 @@ function Segment(x, y){
 
 Segment.prototype.run = function () {
     
-    this.update(parent);
+    this.update();
     this.render();
     this.checkEdges();
   }
