@@ -17,16 +17,16 @@ Segment.prototype.run = function () {
 
   Segment.prototype.checkEdges = function () {
     if(this.loc.x > canvas.width){
-      this.loc.x = 0;
+      this.vel.x = -this.vel.x;
     }
     if(this.loc.x < 0){
-      this.loc.x = canvas.width;
+      this.vel.x = -this.vel.x;
     }
     if(this.loc.y > canvas.height){
-      this.loc.y = 0;
+      this.vel.y = -this.vel.y;
     }
     if(this.loc.y < 0){
-      this.loc.y = canvas.height;
+      this.vel.y = -this.vel.y;
     }
   }
   
@@ -66,10 +66,11 @@ Segment.prototype.run = function () {
 
   Segment.prototype.update = function (){
     this.acc.normalize();
-    this.acc.multiply(0.04);
+    this.acc.multiply(0.03);
     this.vel.add(this.acc);
     this.vel.limit(1);
     this.loc.add(this.vel);
+    
     
     
     

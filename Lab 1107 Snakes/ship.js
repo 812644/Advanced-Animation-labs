@@ -6,13 +6,13 @@ function Ship(x, y){
   this.diam = 10;
   this.theta = 0;
   
-  this.arrseg = [5];
-  //this.seg1 = new Segment(this.loc.x,this.loc.y);
+  this.arrseg = [20];
+  
   this.arrseg[0]=new Segment(this.loc.x, this.loc.y);
-  for(let i = 1; i<this.arrseg.length; i++){
+  for(let i = 1; i<20; i++){
     this.arrseg[i] = new Segment(this.loc.x, this.loc.y);
+    
   }
-  //this.seg2 = new Segment(this.seg1.loc.x, this.seg1.loc.y);
   return this;
 }
 
@@ -21,26 +21,24 @@ Ship.prototype.run = function () {
     this.update();
     this.render();
     this.checkEdges();
-    for(let i = 0; i<5; i++){
+    for(let i = 0; i<20; i++){
       this.arrseg[i].run();
     }
-    //this.seg1.run();
-    //this.seg2.run();
   }
 
 
   Ship.prototype.checkEdges = function () {
     if(this.loc.x > canvas.width){
-      this.loc.x = 0;
+      this.vel.x = -this.vel.x;
     }
     if(this.loc.x < 0){
-      this.loc.x = canvas.width;
+      this.vel.x = -this.vel.x;
     }
     if(this.loc.y > canvas.height){
-      this.loc.y = 0;
+      this.vel.y = -this.vel.y;
     }
     if(this.loc.y < 0){
-      this.loc.y = canvas.height;
+      this.vel.y = -this.vel.y;
     }
   }
   
@@ -68,9 +66,6 @@ Ship.prototype.run = function () {
     context.lineTo(25, 0);
     context.lineTo(30, 10);
     context.closePath();
-    
-    
-  
     context.fill();     // render the fill
     context.stroke();   // render the stroke
     context.restore();
@@ -86,9 +81,12 @@ Ship.prototype.run = function () {
     //this.seg1.acc = JSVector.subGetNew(this.loc, this.seg1.loc);
     //this.seg2.acc = JSVector.subGetNew(this.seg1.loc, this.seg2.loc);
     this.arrseg[0].acc = JSVector.subGetNew(this.loc, this.arrseg[0].loc);
-    for(let i = 1; i<5; i++){
+    for(let i = 1; i<20; i++){
       this.arrseg[i].acc = JSVector.subGetNew(this.arrseg[i-1].loc, this.arrseg[i].loc);
+      
+      
     }
+
 
 
     

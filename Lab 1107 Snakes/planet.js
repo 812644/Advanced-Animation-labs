@@ -72,7 +72,7 @@ Planet.prototype.update = function () {
     this.acc.normalize();
     this.acc.multiply(0.005);
     this.vel.add(this.acc);
-    this.vel.limit(1.1);
+    this.vel.limit(1);
   }
      this.loc.add(this.vel);
     
