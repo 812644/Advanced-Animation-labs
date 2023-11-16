@@ -36,10 +36,10 @@ Segment.prototype.run = function () {
   //renders a bubble to the canvas
   Segment.prototype.render = function () {
     if (this.isOverlapping) {
-      context.strokeStyle = "LightCoral";  // color to fill
+      context.strokeStyle = "IndianRed";  // color to fill
       context.fillStyle = "LightCoral";     // color to stroke
     } else {
-      context.strokeStyle = "LightCoral";  // color to fill
+      context.strokeStyle = "IndianRed";  // color to fill
       context.fillStyle = "LightCoral";     // color to stroke
     }
     // create the circle path
@@ -49,14 +49,14 @@ Segment.prototype.run = function () {
     context.beginPath();
     context.translate(this.loc.x, this.loc.y);
     context.rotate(this.vel.getDirection());
+    context.rotate(Math.PI);
     context.moveTo(0, 0);
     context.lineTo(30, -10);
     context.lineTo(25, 0);
     context.lineTo(30, 10);
     context.closePath();
     
-    // context.moveTo(this.loc.x, this.loc.y);
-    // context.arc(this.loc.x+50, this.loc.y , 20, 0, 2*Math.PI);
+    
     
   
     context.fill();     // render the fill

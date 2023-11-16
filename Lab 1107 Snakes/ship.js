@@ -6,10 +6,10 @@ function Ship(x, y){
   this.diam = 10;
   this.theta = 0;
   
-  this.arrseg = [20];
+  this.arrseg = [100];
   
   this.arrseg[0]=new Segment(this.loc.x, this.loc.y);
-  for(let i = 1; i<20; i++){
+  for(let i = 1; i<100; i++){
     this.arrseg[i] = new Segment(this.loc.x, this.loc.y);
     
   }
@@ -21,7 +21,7 @@ Ship.prototype.run = function () {
     this.update();
     this.render();
     this.checkEdges();
-    for(let i = 0; i<20; i++){
+    for(let i = 0; i<100; i++){
       this.arrseg[i].run();
     }
   }
@@ -48,10 +48,10 @@ Ship.prototype.run = function () {
   //renders a bubble to the canvas
   Ship.prototype.render = function () {
     if (this.isOverlapping) {
-      context.strokeStyle = "LightCoral";  // color to fill
+      context.strokeStyle = "IndianRed";  // color to fill
       context.fillStyle = "LightCoral";     // color to stroke
     } else {
-      context.strokeStyle = "LightCoral";  // color to fill
+      context.strokeStyle = "IndianRed";  // color to fill
       context.fillStyle = "LightCoral";     // color to stroke
     }
     // create the circle path
@@ -61,13 +61,15 @@ Ship.prototype.run = function () {
     context.beginPath();
     context.translate(this.loc.x, this.loc.y);
     context.rotate(this.vel.getDirection());
+    context.rotate(Math.PI);
     context.moveTo(0, 0);
     context.lineTo(30, -10);
     context.lineTo(25, 0);
     context.lineTo(30, 10);
     context.closePath();
+    context.stroke();  
     context.fill();     // render the fill
-    context.stroke();   // render the stroke
+     // render the stroke
     context.restore();
   }
 
@@ -80,9 +82,11 @@ Ship.prototype.run = function () {
     
     //this.seg1.acc = JSVector.subGetNew(this.loc, this.seg1.loc);
     //this.seg2.acc = JSVector.subGetNew(this.seg1.loc, this.seg2.loc);
-    this.arrseg[0].acc = JSVector.subGetNew(this.loc, this.arrseg[0].loc);
-    for(let i = 1; i<20; i++){
-      this.arrseg[i].acc = JSVector.subGetNew(this.arrseg[i-1].loc, this.arrseg[i].loc);
+    this.arrseg[0].vel = JSVector.subGetNew(this.loc, this.arrseg[0].loc);
+    for(let i = 1; i<100; i++){
+      this.arrseg[i].vel = JSVector.subGetNew(this.arrseg[i-1].loc, this.arrseg[i].loc);
+      this.arrseg[i].vel.multiply(0.2);
+
       
       
     }

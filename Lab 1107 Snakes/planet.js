@@ -54,14 +54,14 @@ Planet.prototype.render = function () {
   context.arc(this.loc.x, this.loc.y, this.diam, 0, 2 * Math.PI);
   context.closePath();
 
-  context.fill();     // render the fill
-  context.stroke();   // render the stroke
+  // context.fill();     // render the fill
+  // context.stroke();   // render the stroke
 }
   
 Planet.prototype.update = function () {
   
   
-  if(this.loc.distance(this.ship.loc) < 100){
+  if(this.loc.distance(this.ship.loc) < 50){
 
     this.loc.x = Math.random()*600;
     this.loc.y = Math.random()*600;
