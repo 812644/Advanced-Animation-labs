@@ -5,6 +5,7 @@ function Segment(x, y){
   this.acc = new JSVector(0, 0);
   this.diam = 10;
   this.theta = 0;
+  this.clr = this.getRandomColor();
   return this;
 }
 
@@ -36,9 +37,12 @@ Segment.prototype.run = function () {
   //renders a bubble to the canvas
   Segment.prototype.render = function () {
     if (this.isOverlapping) {
+      // context.strokeStyle = this.clr;  // color to fill
       context.strokeStyle = "IndianRed";  // color to fill
+
       context.fillStyle = "LightCoral";     // color to stroke
     } else {
+      // context.strokeStyle = this.clr;  // color to fill
       context.strokeStyle = "IndianRed";  // color to fill
       context.fillStyle = "LightCoral";     // color to stroke
     }
@@ -70,10 +74,23 @@ Segment.prototype.run = function () {
     this.vel.add(this.acc);
     this.vel.limit(1);
     this.loc.add(this.vel);
-    
-    
-    
-    
 
-    
   }
+  Segment.prototype.getRandomColor = function(){
+    //  List of hex color values for movers
+    let colors = [
+      "#7102AB",
+      "#ab0256",
+      "#0285ab",
+      "#02ab1a",
+      "#ab5302",
+      "#773e26",
+      "#ab0256",
+      "#257874",
+      "#78254e",
+      "#787725"
+    ];
+    let index = Math.floor(Math.random()*colors.length);
+    return colors[index];
+  }
+  
