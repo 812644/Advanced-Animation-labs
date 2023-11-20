@@ -7,7 +7,7 @@ function Ship(x, y){
   this.theta = 0;
   this.clr = this.getRandomColor();
   this.arrseg = [100];
-  
+  this.a = Math.random()+.05;
   this.arrseg[0]=new Segment(this.loc.x, this.loc.y);
   for(let i = 1; i<100; i++){
     this.arrseg[i] = new Segment(this.loc.x, this.loc.y);
@@ -79,13 +79,10 @@ Ship.prototype.run = function () {
     this.vel.add(this.acc);
     this.vel.limit(1);
     this.loc.add(this.vel);
-    
-    //this.seg1.acc = JSVector.subGetNew(this.loc, this.seg1.loc);
-    //this.seg2.acc = JSVector.subGetNew(this.seg1.loc, this.seg2.loc);
     this.arrseg[0].vel = JSVector.subGetNew(this.loc, this.arrseg[0].loc);
     for(let i = 1; i<100; i++){
       this.arrseg[i].vel = JSVector.subGetNew(this.arrseg[i-1].loc, this.arrseg[i].loc);
-      this.arrseg[i].vel.multiply(0.2);
+      this.arrseg[i].vel.multiply(this.a);
       
     }
     

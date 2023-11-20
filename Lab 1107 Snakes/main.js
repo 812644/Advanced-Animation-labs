@@ -11,7 +11,7 @@ let planet=[];
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
-    loadPlanet(2);
+    loadPlanet(5);
     animate();
     
 
