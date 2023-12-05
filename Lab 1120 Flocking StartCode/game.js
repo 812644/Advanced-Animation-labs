@@ -1,4 +1,4 @@
-//  Eric Ettlin
+
 //  231120
 //  Game Code
 function Game() {
@@ -7,7 +7,7 @@ function Game() {
     // get the context
     this.ctx = this.canvas.getContext('2d'); // This is the context
     this.vehicles = [];
-    this.loadVehicles(111);
+    this.loadVehicles(200);
     // setup 6 sliders
     let updateSlider = function (e) {    // update event handler
         e.target.display.textContent = e.target.value;

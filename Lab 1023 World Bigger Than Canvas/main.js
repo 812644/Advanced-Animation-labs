@@ -1,6 +1,6 @@
 //Lab 1023 - 23: World bigger than Canvas
 //Oct. 23, 2023
-//Student Code
+//Katelyn Fung
 
 //Global
 let world;

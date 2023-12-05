@@ -42,23 +42,85 @@ Vehicle.prototype.flock = function(vehicles) {
 //+++++++++++++++++++++++++++++++++  Flocking functions
 Vehicle.prototype.separate = function (v) {
   let sep = new JSVector(0,0);
+  let d = 0
+  let diff = new JSVector(0,0);
+  let sum = new JSVector(0, 0);
+  let count = 0;
+  for(let i = 0; i<v.length; i++){
+    d = this.loc.distance(v[i].loc);
+    if(d>0 && d<this.desiredSep){
+      diff = JSVector.subGetNew(this.loc, v[i].loc);
+      diff.normalize();
+      sum.add(diff);
+      count++;
+    }
+  }
+  if(count>0){
+    sum.divide(count);
+    sum.setMagnitude(this.maxSpeed);
+    sep = JSVector.subGetNew(sum, this.vel);
+    sep.limit(this.maxForce);
+  }
   return sep;
 }
 
 Vehicle.prototype.align = function (v) {
   let steer = new JSVector(0,0);
-  return steer;
+  let neighborDist = 150;
+  let sum = new JSVector(0,0);
+  let count = 0;
+  let d = 0
+  for(let i = 0; i<v.length; i++){
+    d = this.loc.distance(v[i].loc);
+    if(d>0 && d<neighborDist){
+      sum.add(v[i].vel);
+      count++;
+    }
+  }
+  if(count>0){
+    sum.divide(count);
+    sum.normalize();
+    sum.multiply(this.maxSpeed);
+    steer = JSVector.subGetNew(sum, this.vel);
+    steer.limit(this.maxForce);
+    return steer;
+  }
+  else{
+    return new JSVector(0,0);
+  }
+  
 }
 
 Vehicle.prototype.cohesion = function (v) {
   let coh = new JSVector(0,0);
-  return coh;
+  let neighborDist = 200;
+  let sum = new JSVector(0,0);
+  let count = 0;
+  let d = 0;
+  for(let i = 0; i<v.length; i++){
+    d = this.loc.distance(v[i].loc);
+    if(d>0 && d<neighborDist){
+      sum.add(v[i].loc);
+      count++;
+    }
+  }
+  if(count>0){
+    sum.divide(count);
+    return this.seek(sum);
+  }
+  else{
+    return new JSVector(0,0);
+  }
+  //return coh;
 }
 
 Vehicle.prototype.seek = function(target) {
   // A vector pointing from the location to the target
   let desired = JSVector.subGetNew(target,this.loc);  
+  desired.normalize();
+  desired.multiply(this.maxSpeed);
   let steer = JSVector.subGetNew(desired,this.vel);
+  steer.limit(this.maxForce);
   return steer;
 }
 //+++++++++++++++++++++++++++++++++  Flocking functions
@@ -74,6 +136,7 @@ Vehicle.prototype.checkEdges = function () {
   if(this.loc.x < 0) this.loc.x = game.canvas.width;
   if(this.loc.y > game.canvas.height) this.loc.y = 0;
   if(this.loc.y < 0) this.loc.y = game.canvas.height;
+  
 }
 
 Vehicle.prototype.render = function () {

@@ -1,4 +1,5 @@
 
+//Katelyn Fung
 // wait for the page to finish loading with init as the callback
 window.addEventListener("load", init);
 

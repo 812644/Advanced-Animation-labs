@@ -7,10 +7,10 @@ function Ship(x, y){
   this.theta = 0;
   this.clr = this.getRandomColor();
   this.arrseg = [100];
-  this.a = Math.random()+.05;
+  this.a = Math.random();
   this.arrseg[0]=new Segment(this.loc.x, this.loc.y);
   for(let i = 1; i<100; i++){
-    this.arrseg[i] = new Segment(this.loc.x, this.loc.y);
+    this.arrseg[i] = new Segment(this.loc.x, this.loc.y, this.clr);
     
   }
   return this;
@@ -21,7 +21,7 @@ Ship.prototype.run = function () {
     this.update();
     this.render();
     this.checkEdges();
-    for(let i = 0; i<100; i++){
+    for(let i = 99; i>=0; i--){
       this.arrseg[i].run();
     }
   }

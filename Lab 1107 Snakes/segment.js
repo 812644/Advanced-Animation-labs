@@ -1,11 +1,11 @@
-function Segment(x, y){
+function Segment(x, y, clr){
   
   this.loc = new JSVector(x, y);
   this.vel = new JSVector(0, 0);
   this.acc = new JSVector(0, 0);
   this.diam = 10;
   this.theta = 0;
-  this.clr = this.getRandomColor();
+  this.clr = clr;
   return this;
 }
 
@@ -37,14 +37,14 @@ Segment.prototype.run = function () {
   //renders a bubble to the canvas
   Segment.prototype.render = function () {
     if (this.isOverlapping) {
-      // context.strokeStyle = this.clr;  // color to fill
-      context.strokeStyle = "IndianRed";  // color to fill
+      context.strokeStyle = this.clr;  // color to fill
+      // context.strokeStyle = "IndianRed";  // color to fill
 
-      context.fillStyle = "LightCoral";     // color to stroke
+      // context.fillStyle = "LightCoral";     // color to stroke
     } else {
-      // context.strokeStyle = this.clr;  // color to fill
-      context.strokeStyle = "IndianRed";  // color to fill
-      context.fillStyle = "LightCoral";     // color to stroke
+      context.strokeStyle = this.clr;  // color to fill
+      // context.strokeStyle = "IndianRed";  // color to fill
+      // context.fillStyle = "LightCoral";     // color to stroke
     }
     // create the circle path
     //context.beginPath();    // clear old path
@@ -63,7 +63,7 @@ Segment.prototype.run = function () {
     
     
   
-    context.fill();     // render the fill
+    // context.fill();     // render the fill
     context.stroke();   // render the stroke
     context.restore();
   }
