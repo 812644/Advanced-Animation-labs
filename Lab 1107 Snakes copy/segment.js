@@ -1,34 +1,22 @@
-function Ship(x, y){
+function Segment(x, y, clr){
   
   this.loc = new JSVector(x, y);
-  this.vel = new JSVector(Math.random()*2-1, Math.random()*2-1);
+  this.vel = new JSVector(0, 0);
   this.acc = new JSVector(0, 0);
   this.diam = 10;
   this.theta = 0;
-  this.clr = this.getRandomColor();
-  this.arrseg = [100];
-  this.a = Math.random();
-  this.dis = true;
-  this.arrseg[0]=new Segment(this.loc.x, this.loc.y);
-  for(let i = 1; i<100; i++){
-    this.arrseg[i] = new Segment(this.loc.x, this.loc.y, this.clr);
-    
-  }
+  this.clr = clr;
   return this;
 }
 
-Ship.prototype.run = function () {
+Segment.prototype.run = function () {
     
     this.update();
     this.render();
     this.checkEdges();
-    for(let i = 99; i>=0; i--){
-      this.arrseg[i].run();
-    }
   }
 
-
-  Ship.prototype.checkEdges = function () {
+  Segment.prototype.checkEdges = function () {
     if(this.loc.x > canvas.width){
       this.vel.x = -this.vel.x;
     }
@@ -47,13 +35,16 @@ Ship.prototype.run = function () {
   
   
   //renders a bubble to the canvas
-  Ship.prototype.render = function () {
+  Segment.prototype.render = function () {
     if (this.isOverlapping) {
       context.strokeStyle = this.clr;  // color to fill
-      context.fillStyle = this.clr;     // color to stroke
+      // context.strokeStyle = "IndianRed";  // color to fill
+
+      // context.fillStyle = "LightCoral";     // color to stroke
     } else {
       context.strokeStyle = this.clr;  // color to fill
-      context.fillStyle = this.clr;     // color to stroke
+      // context.strokeStyle = "IndianRed";  // color to fill
+      // context.fillStyle = "LightCoral";     // color to stroke
     }
     // create the circle path
     //context.beginPath();    // clear old path
@@ -68,41 +59,24 @@ Ship.prototype.run = function () {
     context.lineTo(25, 0);
     context.lineTo(30, 10);
     context.closePath();
-    context.stroke();  // render the stroke
-    context.fill();    // render the fill
-     
+    
+    
+    
+  
+    // context.fill();     // render the fill
+    context.stroke();   // render the stroke
     context.restore();
   }
 
-  Ship.prototype.update = function (){
+  Segment.prototype.update = function (){
     this.acc.normalize();
     this.acc.multiply(0.03);
     this.vel.add(this.acc);
     this.vel.limit(1);
     this.loc.add(this.vel);
-    this.arrseg[0].vel = JSVector.subGetNew(this.loc, this.arrseg[0].loc);
-    for(let i = 1; i<100; i++){
-      this.arrseg[i].vel = JSVector.subGetNew(this.arrseg[i-1].loc, this.arrseg[i].loc);
-      this.arrseg[i].vel.multiply(this.a);
-      
-    }
-    if(this.a>.99){
-      this.dis = true;
-    }
-    if(this.a<.1){
-      this.dis = false;
-    }
-    if(this.dis == true){
-      this.a-=0.0006;
-    }
-    if(this.dis == false){
-      this.a+=0.0003;
-    }
-    
-    
-    
+
   }
-  Ship.prototype.getRandomColor = function(){
+  Segment.prototype.getRandomColor = function(){
     //  List of hex color values for movers
     let colors = [
       "#7102AB",
@@ -119,3 +93,4 @@ Ship.prototype.run = function () {
     let index = Math.floor(Math.random()*colors.length);
     return colors[index];
   }
+  

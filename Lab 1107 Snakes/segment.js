@@ -40,11 +40,11 @@ Segment.prototype.run = function () {
       context.strokeStyle = this.clr;  // color to fill
       // context.strokeStyle = "IndianRed";  // color to fill
 
-      // context.fillStyle = "LightCoral";     // color to stroke
+       context.fillStyle = this.clr;     // color to stroke
     } else {
       context.strokeStyle = this.clr;  // color to fill
       // context.strokeStyle = "IndianRed";  // color to fill
-      // context.fillStyle = "LightCoral";     // color to stroke
+       context.fillStyle = this.clr;     // color to stroke
     }
     // create the circle path
     //context.beginPath();    // clear old path
@@ -63,7 +63,7 @@ Segment.prototype.run = function () {
     
     
   
-    // context.fill();     // render the fill
+    context.fill();     // render the fill
     context.stroke();   // render the stroke
     context.restore();
   }

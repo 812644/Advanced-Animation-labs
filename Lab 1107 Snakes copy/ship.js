@@ -50,10 +50,10 @@ Ship.prototype.run = function () {
   Ship.prototype.render = function () {
     if (this.isOverlapping) {
       context.strokeStyle = this.clr;  // color to fill
-      context.fillStyle = this.clr;     // color to stroke
+      context.fillStyle = "LightCoral";     // color to stroke
     } else {
       context.strokeStyle = this.clr;  // color to fill
-      context.fillStyle = this.clr;     // color to stroke
+      context.fillStyle = "LightCoral";     // color to stroke
     }
     // create the circle path
     //context.beginPath();    // clear old path
@@ -69,7 +69,7 @@ Ship.prototype.run = function () {
     context.lineTo(30, 10);
     context.closePath();
     context.stroke();  // render the stroke
-    context.fill();    // render the fill
+    //context.fill();    // render the fill
      
     context.restore();
   }
@@ -86,17 +86,17 @@ Ship.prototype.run = function () {
       this.arrseg[i].vel.multiply(this.a);
       
     }
-    if(this.a>.99){
+    if(this.a==.9){
       this.dis = true;
     }
-    if(this.a<.1){
+    if(this.a==.01){
       this.dis = false;
     }
     if(this.dis == true){
-      this.a-=0.0006;
+      this.a-=0.001;
     }
     if(this.dis == false){
-      this.a+=0.0003;
+      this.a+=0.001;
     }
     
     
