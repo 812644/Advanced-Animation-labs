@@ -86,18 +86,7 @@ Ship.prototype.run = function () {
       this.arrseg[i].vel.multiply(this.a);
       
     }
-    if(this.a==.9){
-      this.dis = true;
-    }
-    if(this.a==.01){
-      this.dis = false;
-    }
-    if(this.dis == true){
-      this.a-=0.001;
-    }
-    if(this.dis == false){
-      this.a+=0.001;
-    }
+   
     
     
     

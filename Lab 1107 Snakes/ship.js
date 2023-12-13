@@ -20,7 +20,7 @@ function Ship(x, y){
 Ship.prototype.run = function () {
     
     this.update();
-    this.render();
+    //this.render();
     this.checkEdges();
     for(let i = 99; i>=0; i--){
       this.arrseg[i].run();
@@ -78,7 +78,7 @@ Ship.prototype.run = function () {
     this.acc.normalize();
     this.acc.multiply(0.03);
     this.vel.add(this.acc);
-    this.vel.limit(1);
+    this.vel.limit(3);
     this.loc.add(this.vel);
     this.arrseg[0].vel = JSVector.subGetNew(this.loc, this.arrseg[0].loc);
     for(let i = 1; i<100; i++){
@@ -89,7 +89,7 @@ Ship.prototype.run = function () {
     if(this.a>.99){
       this.dis = true;
     }
-    if(this.a<.1){
+    if(this.a<.2){
       this.dis = false;
     }
     if(this.dis == true){

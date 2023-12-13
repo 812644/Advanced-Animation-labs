@@ -38,12 +38,10 @@ Segment.prototype.run = function () {
   Segment.prototype.render = function () {
     if (this.isOverlapping) {
       context.strokeStyle = this.clr;  // color to fill
-      // context.strokeStyle = "IndianRed";  // color to fill
 
        context.fillStyle = this.clr;     // color to stroke
     } else {
       context.strokeStyle = this.clr;  // color to fill
-      // context.strokeStyle = "IndianRed";  // color to fill
        context.fillStyle = this.clr;     // color to stroke
     }
     // create the circle path
@@ -55,16 +53,22 @@ Segment.prototype.run = function () {
     context.rotate(this.vel.getDirection());
     context.rotate(Math.PI);
     context.moveTo(0, 0);
-    context.lineTo(30, -10);
-    context.lineTo(25, 0);
-    context.lineTo(30, 10);
-    context.closePath();
+    context.lineCap = "round";
+    // context.lineTo(30, -10);
+    // context.lineTo(25, 0);
+    // context.lineTo(30, 10);
+    // context.closePath();
     
+    context.lineTo(10, 0);
+    context.lineWidth = 10;
+    context.stroke();
     
     
   
     context.fill();     // render the fill
-    context.stroke();   // render the stroke
+    //context.stroke();   // render the stroke
+    
+    context.closePath();
     context.restore();
   }
 
@@ -72,7 +76,7 @@ Segment.prototype.run = function () {
     this.acc.normalize();
     this.acc.multiply(0.03);
     this.vel.add(this.acc);
-    this.vel.limit(1);
+    this.vel.limit(3);
     this.loc.add(this.vel);
 
   }
